@@ -2,7 +2,7 @@ package main //包名
 
 //fmt 包实现了格式化 IO（输入/输出）
 import (
-	"./myLib"
+	"./algorithm"
 	"fmt"
 )
 
@@ -12,7 +12,11 @@ func main() { //main 函数是每一个可执行程序所必须包含的
 	//在 Go 程序中，一行代表一个语句结束。每个语句不需要像 C 家族中的其它语言一样以分号 ; 结尾
 
 	//go里面的函数要首字母大写
-	myLib.DataType()
+	//myLib.DataType()
 
-	fmt.Println(myLib.Add(1, 1))
+	//fmt.Println(myLib.Add(1, 1))
+
+	arr := []int{2, 3, 4}
+	algorithm.EchoArray(arr)
+
 }

@@ -1,8 +1,8 @@
-package myLib
+package myLib2
 
 import "fmt"
 
-func DataType()  {
+func DataType() {
 
 	/* 标识符
 	   mahesh   kumar   abc   move_name   a_123

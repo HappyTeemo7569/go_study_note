@@ -1,14 +1,8 @@
 package main //包名
+import "base"
 
-//fmt 包实现了格式化 IO（输入/输出）
-import (
-	"./src/myLib"
-	"fmt"
-)
-
-func main() {
-
-	fout := myLib2.CreateFile("./test2.txt")
+/**
+fout := myLib2.CreateFile("./test2.txt")
 
 	defer fout.Close() //main函数结束前， 关闭文件
 
@@ -26,4 +20,9 @@ func main() {
 	//读文件
 	myLib2.ReadFile("./test.txt")
 	myLib2.ReadFileLine("./test.txt")
+*/
+func main() {
+
+	base.HelloWord()
+	base.DataType()
 }

@@ -1,4 +1,4 @@
-package myLib2
+package base
 
 import "fmt"
 

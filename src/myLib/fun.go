@@ -1,4 +1,4 @@
-package myLib2
+package myLib
 
 func Add(x, y int) int {
 	return x + y
@@ -6,4 +6,10 @@ func Add(x, y int) int {
 
 func add(x, y int) int {
 	return x + y
+}
+
+func Sub(x, y int) int {
+	a := add(x, y)
+	println(a)
+	return x - y
 }

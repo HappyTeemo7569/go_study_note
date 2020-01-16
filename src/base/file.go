@@ -75,7 +75,7 @@ func ReadFileLine(path string) {
 
 }
 
-func Test() {
+func TestFile() {
 
 	fout := CreateFile("./test2.txt")
 

@@ -1,9 +1,11 @@
 package main //包名
 import (
-	"goroutine"
+	"base"
 )
 
 func main() {
 
-	goroutine.Run()
+	//goroutine.Run()
+
+	base.TestClass()
 }

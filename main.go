@@ -1,11 +1,17 @@
 package main //包名
 import (
-	"base"
+	"myScoket"
 )
 
 func main() {
 
-	//goroutine.Run()
+	go func() {
+		myScoket.RunTCP()
+	}()
+	go func() {
+		myScoket.RunUDP()
+	}()
 
-	base.TestClass()
+	ch := make(chan int)
+	ch <- 1
 }

@@ -28,9 +28,9 @@ func (l *SqList) ClearList() {
 //判断是否为空
 func (l *SqList) CheckEmpty() bool {
 	if l.Length > 0 {
-		return true
+		return false
 	}
-	return false
+	return true
 }
 
 //获取长度

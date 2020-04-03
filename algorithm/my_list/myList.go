@@ -1,4 +1,4 @@
-package list
+package my_list
 
 const (
 	MAXSIZE = 20

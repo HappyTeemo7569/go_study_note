@@ -1,4 +1,4 @@
-package list
+package my_list
 
 import "fmt"
 

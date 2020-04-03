@@ -1,6 +1,10 @@
 package main //包名
 
-import "algorithm/list"
+import (
+	"fmt"
+	"my_go/algorithm/my_list"
+	_ "my_go/myLib"
+)
 
 func main() {
 
@@ -13,6 +17,8 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
+	test := my_list.SqList{}
+	test.Test()
+	fmt.Println("OK ")
 
-	list.MyList()
 }

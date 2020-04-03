@@ -1,5 +1,6 @@
 package main //包名
-import "my_go/src/algorithm/list"
+
+import "algorithm/list"
 
 func main() {
 
@@ -13,5 +14,5 @@ func main() {
 	//ch := make(chan int)
 	//ch <- 1
 
-	list.LinkListRun()
+	list.MyList()
 }

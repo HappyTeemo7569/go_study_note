@@ -1,55 +1,37 @@
 package list
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type LinkList struct {
-	Head   *Node
-	Length int
+//静态链表
+type StaticList struct {
+	Element [MAXSIZE]StaticNode
+	Length  int
 }
 
-type Node struct {
+type StaticNode struct {
 	Data ElemType
-	Next *Node
+	Cur  int
 }
 
-func NewLinkNode(value ElemType) *Node {
-	return &Node{
-		value,
-		nil,
-	}
-}
-
-//func (this  *Node) GetNext() *Node {
-//	//return this.Next
-//}
+//静态链表理论上是要用参数传递的。
 
 //初始化列表
-func (l *LinkList) InitList() {
+func (l *StaticList) InitList() {
 	l.Length = 0
-	l.Head = NewLinkNode(EmptyElement)
+	for i := 0; i < MAXSIZE; i++ {
+		l.Element[i] = StaticNode{EmptyElement, i + 1}
+	}
+	l.Element[MAXSIZE-1].Cur = 0
 }
 
-//清空列表
-func (l *LinkList) ClearList() {
-	p := new(Node)
-	q := l.Head
-	for {
-		if q != nil {
-			p = q
-			q = p.Next
-			p = nil
-		} else {
-			break
-		}
-	}
-	l.Head.Next = nil
-	l.Length = 0
+//清空列表 就是将首尾两个数组设置为原始的1和0
+func (l *StaticList) ClearList() {
+	l.Element[0].Cur = 1
+	l.Element[MAXSIZE-1].Cur = 0
 }
 
 //判断是否为空
-func (l *LinkList) CheckEmpty() bool {
+func (l *StaticList) ListEmpty() bool {
 	if l.Length > 0 {
 		return false
 	}
@@ -57,35 +39,30 @@ func (l *LinkList) CheckEmpty() bool {
 }
 
 //获取长度
-func (l *LinkList) GetLength() int {
+func (l *StaticList) ListLength() int {
 	return l.Length
 }
 
 //增
-func (l *LinkList) AddItem(index int, value ElemType) bool {
-
+func (l *StaticList) AddItem(index int, value ElemType) bool {
+	if l.Length == MAXSIZE {
+		return false
+	}
 	if index < 0 || index > l.Length {
 		return false
 	}
 
-	index = index + 1 //头结点位置
-
-	pItem := l.Head
-
-	for j := 1; j < index; j++ {
-		pItem = pItem.Next
+	for k := l.Length; k > index; k-- {
+		l.Element[k] = l.Element[k-1]
 	}
-
-	newItem := NewLinkNode(value)
-	pItem.Next = newItem
-
+	l.Element[index] = value
 	l.Length++
 
 	return true
 }
 
 //删
-func (l *LinkList) DelItem(index int) bool {
+func (l *StaticList) DelItem(index int) bool {
 	if l.Length == 0 {
 		return false
 	}
@@ -119,19 +96,8 @@ func (l *LinkList) DelItem(index int) bool {
 	return true
 }
 
-func getNodeByIndex(l *LinkList, index int) *Node {
-	if index > l.Length || index < 0 {
-		return nil
-	}
-	preItem := l.Head.Next
-	for i := 0; i < index; i++ {
-		preItem = preItem.Next
-	}
-	return preItem
-}
-
 //改
-func (l *LinkList) SetItem(index int, value ElemType) bool {
+func (l *StaticList) SetItem(index int, value ElemType) bool {
 	if index > l.Length || index < 0 {
 		return false
 	}
@@ -144,7 +110,7 @@ func (l *LinkList) SetItem(index int, value ElemType) bool {
 }
 
 //查
-func (l *LinkList) GetItem(index int) ElemType {
+func (l *StaticList) GetElem(index int) ElemType {
 	if index < 0 || index > l.Length {
 		return EmptyElement
 	}
@@ -158,7 +124,7 @@ func (l *LinkList) GetItem(index int) ElemType {
 }
 
 //输出
-func (l *LinkList) Echo() {
+func (l *StaticList) Echo() {
 	curItem := l.Head.Next
 	for i := 0; i < l.Length; i++ {
 		fmt.Println(curItem.Data, i)
@@ -167,7 +133,7 @@ func (l *LinkList) Echo() {
 	fmt.Println("end")
 }
 
-func LinkListRun() {
+func (l *StaticList) Test() {
 	my_list := new(LinkList)
 	my_list.InitList()
 	for i := 0; i < 10; i++ {

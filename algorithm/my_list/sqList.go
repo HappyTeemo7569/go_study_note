@@ -122,6 +122,22 @@ func (l *SqList) Echo() {
 	fmt.Println(l.Element)
 }
 
+func (la *SqList) unionL(lb *SqList) {
+	var e ElemType
+	i := 0
+
+	La_length := la.ListLength()
+	Lb_length := lb.ListLength()
+	for i = 1; i <= Lb_length; i++ {
+		lb.GetElem(i, &e)
+		if la.LocateElem(e) != 0 {
+			index := La_length + 1
+			la.ListInsert(index, e)
+		}
+
+	}
+}
+
 func (l *SqList) Test() {
 
 	fmt.Println("测试开始")
@@ -131,20 +147,22 @@ func (l *SqList) Test() {
 
 	for i := 1; i <= 10; i++ {
 		my_list.ListInsert(i, ElemType(i*i+1))
+		my_list.Echo()
 	}
 
+	fmt.Println("第5个这里插入256")
 	my_list.ListInsert(5, 256)
+	my_list.Echo()
 	my_list.ListInsert(199, 99)
 
 	var e ElemType
 
-	my_list.Echo()
 	my_list.ListDelete(1, &e)
 	fmt.Println("删除头元素:", e)
+	my_list.Echo()
 
 	my_list.ListDelete(my_list.ListLength(), &e)
 	fmt.Println("删除尾元素:", e)
-
 	my_list.Echo()
 
 	my_list.GetElem(6, &e)

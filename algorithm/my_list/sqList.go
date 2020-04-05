@@ -51,7 +51,7 @@ func (l *SqList) GetElem(index int, e *ElemType) bool {
 		return false
 	}
 
-	e = &l.Element[index-1]
+	*e = l.Element[index-1]
 	return true
 }
 
@@ -108,7 +108,7 @@ func (l *SqList) ListDelete(index int, e *ElemType) bool {
 	}
 
 	//删除元素，是将后面元素前移，再将最后的元素删除
-	e = &l.Element[index-1]
+	*e = l.Element[index-1]
 	for k := index; k < l.Length; k++ {
 		l.Element[k-1] = l.Element[k]
 	}
@@ -122,17 +122,20 @@ func (l *SqList) Echo() {
 	fmt.Println(l.Element)
 }
 
-func (la *SqList) unionL(lb *SqList) {
+//实现两个线性表的并集
+func (la *SqList) UnionL(lb *SqList) {
 	var e ElemType
-	i := 0
+	//i := 0
 
 	La_length := la.ListLength()
 	Lb_length := lb.ListLength()
-	for i = 1; i <= Lb_length; i++ {
+	for i := 1; i <= Lb_length; i++ {
 		lb.GetElem(i, &e)
-		if la.LocateElem(e) != 0 {
-			index := La_length + 1
-			la.ListInsert(index, e)
+		a_index := la.LocateElem(e)
+		if a_index == 0 {
+			La_length = La_length + 1
+			//fmt.Println("插入index:",La_length,e)
+			la.ListInsert(La_length, e)
 		}
 
 	}
@@ -176,7 +179,25 @@ func (l *SqList) Test() {
 	my_list.ClearList()
 	if my_list.ListEmpty() {
 		fmt.Println("已清空")
+		my_list.Echo()
 	}
+
+	fmt.Println("准备合并")
+
+	my_list_a := new(SqList)
+	my_list_b := new(SqList)
+	for i := 1; i <= 10; i++ {
+		my_list_a.ListInsert(i, ElemType(2*i+1))
+		my_list_b.ListInsert(i, ElemType(3*i+1))
+	}
+
+	my_list_a.Echo()
+	my_list_b.Echo()
+
+	fmt.Println("合并后")
+
+	my_list_a.UnionL(my_list_b)
+	my_list_a.Echo()
 
 	fmt.Println("测试完成")
 

@@ -17,7 +17,7 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
-	test := my_list.SqList{}
+	test := my_list.LinkList{}
 	test.Test()
 	fmt.Println("OK ")
 

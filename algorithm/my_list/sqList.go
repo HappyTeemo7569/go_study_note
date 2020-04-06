@@ -133,11 +133,10 @@ func (la *SqList) UnionL(lb *SqList) {
 		lb.GetElem(i, &e)
 		a_index := la.LocateElem(e)
 		if a_index == 0 {
-			La_length = La_length + 1
+			La_length++
 			//fmt.Println("插入index:",La_length,e)
 			la.ListInsert(La_length, e)
 		}
-
 	}
 }
 

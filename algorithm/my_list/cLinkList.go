@@ -1,6 +1,8 @@
 package my_list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type CLinkList struct {
 	Head   *Node
@@ -16,15 +18,15 @@ func (l *CLinkList) InitList() {
 
 //清空列表（不会清除头结点）
 func (l *CLinkList) ClearList() {
-	p := new(Node)
-	q := l.Head //q指向第一个结点
+	//p := new(Node)
+	//q := l.Head //q指向第一个结点
 
 	//释放内存，其实go可以不需要这个循环
-	for q != nil {
-		p = q
-		q = p.Next
-		p = nil
-	}
+	//for q != nil {
+	//	p = q
+	//	q = p.Next
+	//	p = nil
+	//}
 	l.Head.Next = l.Head
 	l.Length = 0
 }
@@ -173,6 +175,26 @@ func (l *CLinkList) Echo() {
 	fmt.Println()
 }
 
+//实现两个链表的合并
+func (la *CLinkList) Merge(lb *CLinkList) {
+
+	//A的尾巴指向B的头，B的尾巴指向A的头
+	a_last := la.Head.Next
+	for j := 1; j < la.Length; j++ {
+		a_last = a_last.Next
+	}
+	b_last := lb.Head.Next
+	for j := 1; j < lb.Length; j++ {
+		b_last = b_last.Next
+	}
+
+	//跳过B的头，也就是B的头干掉
+	a_last.Next = lb.Head.Next
+	b_last.Next = la.Head
+
+	la.Length += lb.Length
+}
+
 func (l *CLinkList) Test() {
 	fmt.Println("测试开始")
 
@@ -218,22 +240,27 @@ func (l *CLinkList) Test() {
 		my_list.Echo()
 	}
 
-	//fmt.Println("准备合并")
-	//
-	//my_list_a := new(SqList)
-	//my_list_b := new(SqList)
-	//for i := 1; i <= 10; i++ {
-	//	my_list_a.ListInsert(i, ElemType(2*i+1))
-	//	my_list_b.ListInsert(i, ElemType(3*i+1))
-	//}
-	//
-	//my_list_a.Echo()
-	//my_list_b.Echo()
-	//
-	//fmt.Println("合并后")
-	//
-	//my_list_a.UnionL(my_list_b)
-	//my_list_a.Echo()
+	fmt.Println("准备合并")
+
+	my_list_a := new(CLinkList)
+	my_list_a.InitList()
+	my_list_b := new(CLinkList)
+	my_list_b.InitList()
+
+	for i := 1; i <= 10; i++ {
+		my_list_a.ListInsert(i, ElemType(2*i+1))
+		my_list_b.ListInsert(i, ElemType(3*i+1))
+	}
+
+	my_list_a.Echo()
+	my_list_b.Echo()
+
+	fmt.Println("合并后")
+
+	my_list_a.Merge(my_list_b)
+	my_list_a.Echo()
+	my_list_a.GetElem(my_list_a.ListLength()+1, &e)
+	fmt.Println("最后一个的下一个:", e)
 
 	fmt.Println("测试完成")
 }

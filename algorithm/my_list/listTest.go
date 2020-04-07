@@ -1,6 +1,8 @@
 package my_list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
 题目
@@ -44,4 +46,42 @@ func (l *LinkList) Test1() {
 	var e ElemType
 	index := my_list.FindMidEle(&e)
 	fmt.Println("中间值:", e, "位置", index)
+}
+
+/**
+约瑟夫环
+19个人报数，1-3，当谁报数为3，谁就淘汰。现在获取他们淘汰的顺序
+*/
+func (l *CLinkList) Test1() {
+	my_list := new(CLinkList)
+	my_list.InitList()
+
+	for i := 1; i <= 19; i++ {
+		my_list.ListInsert(i, ElemType(i))
+		//my_list.Echo()
+	}
+	var e ElemType
+
+	var s1 []ElemType //创建nil切换
+
+	cur := my_list.Head.Next
+	for i := 1; my_list.ListEmpty() != true; i++ {
+		index := my_list.LocateElem(cur.Data)
+		fmt.Println("第几个:", index, "数值:", cur.Data, "喊,", i)
+		if i%3 == 0 {
+			my_list.ListDelete(index, &e)
+			fmt.Println("淘汰:", e)
+			s1 = append(s1, e)
+			my_list.Echo()
+			i = 0
+		}
+		cur = cur.Next
+		if cur.Data == 0 { //跳过头结点
+			cur = cur.Next
+		}
+	}
+
+	fmt.Println("淘汰顺序:", s1)
+
+	fmt.Println("结束")
 }

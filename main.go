@@ -17,8 +17,8 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
-	test := my_list.StaticList{}
-	test.Test()
+	test := my_list.LinkList{}
+	test.Test1()
 	fmt.Println("OK ")
 
 }

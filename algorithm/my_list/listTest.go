@@ -85,3 +85,68 @@ func (l *CLinkList) Test1() {
 
 	fmt.Println("结束")
 }
+
+/**
+魔术师发牌问题
+一共13张黑牌1-13，预先排好顺序，牌面朝下，开始数数，
+数1翻开第一张牌为1取出，
+数1,2，将喊到1的牌放在末尾，喊到2的牌翻开为2取出
+喊1,2,3，将喊到1和2的牌放到末尾，将喊到3的牌翻开取出
+......
+喊到13，直到将所有牌取出。
+正好翻开顺序为1-2-....-13
+我们需要找到他排列的预先顺序19个人报数，1-3，当谁报数为3，谁就淘汰。现在获取他们淘汰的顺序
+
+注意：翻开一张少一张
+*/
+func (l *CLinkList) Test2() {
+
+	card_num := 1 //卡牌编号
+
+	card_count := 13 //卡牌数量
+
+	my_list := new(CLinkList)
+	my_list.InitList()
+	for i := 1; i <= card_count; i++ {
+		my_list.ListInsert(i, 100)
+	}
+	my_list.Echo()
+
+	//start := my_list.Head.Next
+	start := my_list.Head
+	for card_num <= card_count {
+
+		for j := 1; j <= card_num; j++ {
+			start = start.Next
+			if start.Data != 100 { //跳过头结点 找空白点
+				start = start.Next
+			}
+		}
+
+		start.Data = ElemType(card_num)
+		fmt.Println(card_num)
+		my_list.Echo()
+
+		start = start.Next
+		for start.Data != 100 {
+			start = start.Next
+		}
+		card_num++
+	}
+
+	fmt.Println("开始输出")
+	start = my_list.Head
+	var e ElemType
+	for i := 0; i < card_count; i++ {
+
+		for j := 1; j <= card_num; j++ {
+			start = start.Next
+			if start.Data == 0 { //跳过头结点
+				start = start.Next
+			}
+		}
+		fmt.Println(start.Data)
+		my_list.ListDelete(my_list.LocateElem(start.Data), &e)
+		card_num++
+	}
+}

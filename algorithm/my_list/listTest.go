@@ -118,7 +118,7 @@ func (l *CLinkList) Test2() {
 
 		for j := 1; j <= card_num; j++ {
 			start = start.Next
-			if start.Data != 100 { //跳过头结点 找空白点
+			for start.Data != 100 { //跳过头结点 找空白点
 				start = start.Next
 			}
 		}
@@ -127,15 +127,21 @@ func (l *CLinkList) Test2() {
 		fmt.Println(card_num)
 		my_list.Echo()
 
-		start = start.Next
-		for start.Data != 100 {
+		if card_num == card_count {
+			break
+		} //注意这个判断要在while前面，不然会造成死循环
+
+		for start.Next.Data != 100 {
 			start = start.Next
 		}
 		card_num++
 	}
 
+	//1 8 2 5 10 3 12 11 9 4 7 6 13
+
 	fmt.Println("开始输出")
 	start = my_list.Head
+	card_num = 1
 	var e ElemType
 	for i := 0; i < card_count; i++ {
 
@@ -145,6 +151,7 @@ func (l *CLinkList) Test2() {
 				start = start.Next
 			}
 		}
+
 		fmt.Println(start.Data)
 		my_list.ListDelete(my_list.LocateElem(start.Data), &e)
 		card_num++

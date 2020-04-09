@@ -2,7 +2,7 @@ package main //包名
 
 import (
 	"fmt"
-	"my_go/algorithm/my_list"
+	"my_go/algorithm/my_stack"
 	_ "my_go/myLib"
 )
 
@@ -17,7 +17,7 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
-	test := my_list.DLinkList{}
+	test := my_stack.SqStack{}
 	test.Test()
 	fmt.Println("OK ")
 

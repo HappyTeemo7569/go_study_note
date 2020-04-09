@@ -2,37 +2,38 @@ package my_list
 
 import (
 	"fmt"
+	"math"
 )
 
-type CLinkList struct {
-	Head   *Node
+//双向循环链表
+type DLinkList struct {
+	Head   *DNode
 	Length int
 }
 
+type DNode struct {
+	Data  ElemType
+	Next  *DNode //直接后继指针
+	Prior *DNode //直接前驱指针
+}
+
 //初始化列表
-func (l *CLinkList) InitList() {
-	l.Head = new(Node)
-	l.Head.Next = l.Head //指向自己
+func (l *DLinkList) InitList() {
+	l.Head = new(DNode)
+	l.Head.Next = l.Head  //指向自己
+	l.Head.Prior = l.Head //指向自己
 	l.Length = 0
 }
 
 //清空列表（不会清除头结点）
-func (l *CLinkList) ClearList() {
-	//p := new(Node)
-	//q := l.Head //q指向第一个结点
-
-	//释放内存，其实go可以不需要这个循环
-	//for q != nil {
-	//	p = q
-	//	q = p.Next
-	//	p = nil
-	//}
-	l.Head.Next = l.Head
+func (l *DLinkList) ClearList() {
+	l.Head.Next = l.Head  //指向自己
+	l.Head.Prior = l.Head //指向自己
 	l.Length = 0
 }
 
 //判断是否为空
-func (l *CLinkList) ListEmpty() bool {
+func (l *DLinkList) ListEmpty() bool {
 	if l.Length == 0 {
 		return true
 	}
@@ -40,42 +41,49 @@ func (l *CLinkList) ListEmpty() bool {
 }
 
 //获取长度
-func (l *CLinkList) ListLength() int {
+func (l *DLinkList) ListLength() int {
 	return l.Length
 }
 
-//查
-func (l *CLinkList) GetElem(index int, e *ElemType) bool {
+//查  index可以正 可以负 负表示往前找
+func (l *DLinkList) GetElem(index int, e *ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
 	}
-	//if index < 1 || index > l.Length {
-	//	fmt.Println("获取失败，位置错误")
-	//	return false
-	//}
+
+	i := int(math.Abs(float64(index)))
 
 	if index > MAXSIZE {
 		index = index + 1 //跳过头结点
-	}
-	j := 1
-	q := l.Head.Next
-	for q != nil && j < index {
-		q = q.Next
-		j++
+	} else if index < 0 {
+		index = index - 1 //跳过头结点
 	}
 
-	//有了这一步其实开头的判断可以去掉
-	//if q == nil || j > index {
-	//	return false
-	//}
+	j := 1
+	q := l.Head
+
+	if index > 0 {
+		q = q.Next
+	} else {
+		q = q.Prior
+	}
+	for q != nil && j < i {
+		if index > 0 {
+			q = q.Next
+		} else {
+			q = q.Prior
+		}
+
+		j++
+	}
 
 	*e = q.Data
 	return true
 }
 
 //按照元素进行查找，获取索引
-func (l *CLinkList) LocateElem(value ElemType) int {
+func (l *DLinkList) LocateElem(value ElemType) int {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -99,30 +107,57 @@ func (l *CLinkList) LocateElem(value ElemType) int {
 	return j
 }
 
-//按照索引进行插入数据
-func (l *CLinkList) ListInsert(index int, value ElemType) bool {
+//按照索引进行插入数据  可以双向插入
+func (l *DLinkList) ListInsert(index int, value ElemType) bool {
 
 	if l.Length == MAXSIZE { //满了
 		fmt.Println("插入失败，队列已满")
 		return false
 	}
-	if index < 1 {
-		fmt.Println("插入失败，位置错误")
-		return false
+	//if index < 1 || index > l.Length+1 {
+	//	fmt.Println("插入失败，位置错误")
+	//	return false
+	//}
+
+	i := int(math.Abs(float64(index)))
+
+	if index > MAXSIZE {
+		index = index + 1 //跳过头结点
+	} else if index < 0 {
+		index = index - 1 //跳过头结点
 	}
 
-	front := l.Head
+	j := 1
+	cur := l.Head
 
-	//找到插入位置的前驱
-	for j := 1; j < index; j++ {
-		front = front.Next
+	if index > 0 {
+		cur = cur.Next
+	} else {
+		cur = cur.Prior
+	}
+	for cur != nil && j < i {
+		if index > 0 {
+			cur = cur.Next
+		} else {
+			cur = cur.Prior
+		}
+		j++
 	}
 
 	//新建节点，加入链表
-	n := new(Node)
-	n.Next = front.Next
+	n := new(DNode)
+	if index > 0 {
+		n.Next = cur
+		n.Prior = cur.Prior
+		cur.Prior.Next = n
+		cur.Prior = n
+	} else {
+		n.Next = cur.Next
+		n.Prior = cur
+		cur.Next.Prior = n
+		cur.Next = n
+	}
 	n.Data = value
-	front.Next = n
 
 	l.Length++
 
@@ -130,7 +165,7 @@ func (l *CLinkList) ListInsert(index int, value ElemType) bool {
 }
 
 //删
-func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
+func (l *DLinkList) ListDelete(index int, e *ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -157,6 +192,7 @@ func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
 	tmp := front.Next     //记录要删除的
 	*e = tmp.Data         //返回删除节点的数据
 	front.Next = tmp.Next //前驱节点直接指向后继节点，就跳过了要删除的节点
+	tmp.Next.Prior = front.Prior
 	//free(tmp)
 
 	l.Length--
@@ -165,7 +201,7 @@ func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
 }
 
 //输出
-func (l *CLinkList) Echo() {
+func (l *DLinkList) Echo() {
 	//遍历的写法
 	curItem := l.Head.Next
 	for i := 0; i < l.Length; i++ {
@@ -175,33 +211,13 @@ func (l *CLinkList) Echo() {
 	fmt.Println()
 }
 
-//实现两个链表的合并
-func (la *CLinkList) Merge(lb *CLinkList) {
-
-	//A的尾巴指向B的头，B的尾巴指向A的头
-	a_last := la.Head.Next
-	for j := 1; j < la.Length; j++ {
-		a_last = a_last.Next
-	}
-	b_last := lb.Head.Next
-	for j := 1; j < lb.Length; j++ {
-		b_last = b_last.Next
-	}
-
-	//跳过B的头，也就是B的头干掉
-	a_last.Next = lb.Head.Next
-	b_last.Next = la.Head
-
-	la.Length += lb.Length
-}
-
-func (l *CLinkList) Test() {
+func (l *DLinkList) Test() {
 	fmt.Println("测试开始")
 
-	my_list := new(CLinkList)
+	my_list := new(DLinkList)
 	my_list.InitList()
 
-	for i := 1; i <= 19; i++ {
+	for i := 1; i <= 10; i++ {
 		my_list.ListInsert(i, ElemType(i*i+1))
 		my_list.Echo()
 	}
@@ -209,6 +225,11 @@ func (l *CLinkList) Test() {
 	fmt.Println("第5个这里插入256")
 	my_list.ListInsert(5, 256)
 	my_list.Echo()
+
+	fmt.Println("第-5个这里插入256")
+	my_list.ListInsert(-5, 256)
+	my_list.Echo()
+
 	my_list.ListInsert(199, 99)
 
 	var e ElemType
@@ -239,28 +260,6 @@ func (l *CLinkList) Test() {
 		fmt.Println("已清空")
 		my_list.Echo()
 	}
-
-	fmt.Println("准备合并")
-
-	my_list_a := new(CLinkList)
-	my_list_a.InitList()
-	my_list_b := new(CLinkList)
-	my_list_b.InitList()
-
-	for i := 1; i <= 10; i++ {
-		my_list_a.ListInsert(i, ElemType(2*i+1))
-		my_list_b.ListInsert(i, ElemType(3*i+1))
-	}
-
-	my_list_a.Echo()
-	my_list_b.Echo()
-
-	fmt.Println("合并后")
-
-	my_list_a.Merge(my_list_b)
-	my_list_a.Echo()
-	my_list_a.GetElem(my_list_a.ListLength()+1, &e)
-	fmt.Println("最后一个的下一个:", e)
 
 	fmt.Println("测试完成")
 }

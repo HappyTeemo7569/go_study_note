@@ -22,7 +22,6 @@ type Node struct {
 //初始化列表
 func (l *LinkList) InitList() {
 	l.Head = new(Node)
-	//l.Head.Next = new(Node)
 	l.Length = 0
 }
 

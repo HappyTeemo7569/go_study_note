@@ -17,7 +17,7 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
-	test := my_stack.SqStack{}
+	test := my_stack.LinkStack{}
 	test.Test()
 	fmt.Println("OK ")
 

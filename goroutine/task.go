@@ -1,4 +1,4 @@
-package goroutine
+package main
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ func newTask() {
 	}
 }
 
-func Run() {
+func main() {
 
 	go newTask() //新建一个协程， 新建一个任务
 	index := 1

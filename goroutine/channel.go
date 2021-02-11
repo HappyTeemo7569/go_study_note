@@ -1,4 +1,4 @@
-package goroutine
+package main
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func add_c(a, b int, ch chan int) {
 	ch <- 1
 }
 
-func testSelect() {
+func main() {
 	/**
 	select {
 	    case <-chan1:
@@ -60,5 +60,4 @@ func RunC() {
 	consume := end.Sub(start).Seconds()
 	fmt.Println("程序执行耗时(s)：", consume)
 
-	testSelect()
 }

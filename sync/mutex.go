@@ -8,10 +8,9 @@ import (
 )
 
 /**
-共享变量
-counter
-在变化时加入锁的机制
+共享内存
 */
+
 var counter int = 0
 
 func add(a, b int, lock *sync.Mutex) {
@@ -22,18 +21,18 @@ func add(a, b int, lock *sync.Mutex) {
 	lock.Unlock()
 }
 
-func RunM() {
+func main() {
 	start := time.Now()
-	lock := &sync.Mutex{}
+	lock := &sync.Mutex{} //初始化锁
 	for i := 0; i < 10; i++ {
-		go add(1, i, lock)
+		go add(1, i, lock) //并发相加  注意用同一个锁
 	}
 
 	for {
 		lock.Lock()
 		c := counter
 		lock.Unlock()
-		runtime.Gosched()
+		runtime.Gosched() //让出CPU时间片
 		if c >= 10 {
 			break
 		}

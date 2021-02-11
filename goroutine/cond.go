@@ -1,4 +1,4 @@
-package goroutine
+package main
 
 import (
 	"bytes"
@@ -131,7 +131,7 @@ func (db *DataBucket) Put(d []byte) (int, error) {
 	return n, err
 }
 
-func RunCond() {
+func main() {
 	db := NewDataBucket()
 	go db.Read(1) // 开启读取器协程
 	go func(i int) {

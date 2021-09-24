@@ -1,10 +1,21 @@
 package main //包名
 
 import (
-	"fmt"
-	"my_go/algorithm/my_stack"
+	"my_go/goroutine"
 	_ "my_go/myLib"
+	"my_go/web"
 )
+
+func webTest() {
+	web.RunServer()
+}
+
+func goroutineTest() {
+	//goroutine.RunM()
+	//goroutine.RunC()
+	//goroutine.RunL()
+	goroutine.RunCond()
+}
 
 func main() {
 
@@ -17,8 +28,11 @@ func main() {
 	//
 	//ch := make(chan int)
 	//ch <- 1
-	test := my_stack.LinkStack{}
-	test.Test()
-	fmt.Println("OK ")
+
+	//test := my_stack.LinkStack{}
+	//test.Test()
+	//fmt.Println("OK ")
+
+	goroutineTest()
 
 }

@@ -22,7 +22,7 @@ select 不像 switch，case 后面并不带判断条件，而是直接去查看 
 如果没有 default 语句，则会阻塞直到某个通道操作成功。
 */
 
-func main1() {
+func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	chs := [3]chan int{
@@ -37,20 +37,22 @@ func main1() {
 
 	// 哪一个通道中有值，哪个对应的分支就会被执行
 	select {
-	case <-chs[0]:
-		fmt.Println("第一个条件分支被选中")
-	case <-chs[1]:
-		fmt.Println("第二个条件分支被选中")
+	case num := <-chs[0]:
+		fmt.Println("第0个条件分支被选中", num)
+	case num := <-chs[0]:
+		fmt.Println("第0.1个条件分支被选中", num)
+	case num := <-chs[1]:
+		fmt.Println("第1个条件分支被选中", num)
 	case num := <-chs[2]:
-		fmt.Println("第三个条件分支被选中:", num)
+		fmt.Println("第2个条件分支被选中:", num)
 	default:
-		fmt.Println("没有分支被选中")
+		fmt.Println("没有分支被选中") //其实这段不会执行到
 	}
 }
 
 //select 语句只能对其中的每一个 case 表达式各求值一次，如果我们想连续操作其中的通道的话，需要通过在 for 语句中嵌入 select 语句的方式来实现
 
-func main() {
+func main1() {
 	rand.Seed(time.Now().UnixNano())
 
 	chs := [3]chan int{

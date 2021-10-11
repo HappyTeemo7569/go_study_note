@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func DataType() {
+func main() {
 
 	/* 标识符
 	   mahesh   kumar   abc   move_name   a_123

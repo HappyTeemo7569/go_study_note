@@ -1,4 +1,4 @@
-package algorithm
+package LRU
 
 /**
 新访问数据不断追加到 head 前边，旧数据不断从 tail 剔除。

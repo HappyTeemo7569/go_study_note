@@ -1,5 +1,10 @@
 package algorithm
 
+/**
+新访问数据不断追加到 head 前边，旧数据不断从 tail 剔除。
+LRU 使用链表顺序性保证了热数据在 head，冷数据在 tail。
+*/
+
 type Node struct {
 	key        string // 淘汰 tail 时需在维护的哈希表中删除，不是冗余存储
 	val        interface{}
@@ -11,6 +16,7 @@ type List struct {
 	size       int // 缓存空间大小
 }
 
+//节点新增
 func (l *List) Prepend(node *Node) *Node {
 	if l.head == nil {
 		l.head = node
@@ -25,6 +31,7 @@ func (l *List) Prepend(node *Node) *Node {
 	return node
 }
 
+//节点移除
 func (l *List) Remove(node *Node) *Node {
 	if node == nil {
 		return nil
@@ -63,6 +70,19 @@ func (l *List) Tail() *Node {
 func (l *List) Size() int {
 	return l.size
 }
+
+/**
+Set(k, v)
+	*数据已缓存，则更新值，挪到 head 前
+	*数据未缓存
+		*缓存空间未满：直接挪到 head 前
+		*缓存空间已满：移除 tail 并将新数据挪到 head 前
+
+Get(k)
+	*命中：节点挪到 head 前，并返回 value
+	*未命中：返回 -1
+
+*/
 
 type LRUCache struct {
 	capacity int // 缓存空间大小

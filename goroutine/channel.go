@@ -22,14 +22,23 @@ func printUser(u <-chan *user) {
 	fmt.Println("printUser goRoutine called", <-u)
 }
 
+//写入管道的数据已经确定了，和消息队列一样，后面再改也没用
+
 func main() {
 	c := make(chan *user, 5)
+
 	c <- BBB
-	fmt.Println(BBB)
+	fmt.Println(BBB) //&{AAA 25}
+
 	// 先传入BBB 再修改 BBB
 	BBB = &user{name: "BBB", age: 100}
-	go printUser(c)
-	go modifyUser(BBB)
-	time.Sleep(5 * time.Second)
-	fmt.Println(BBB)
+	go modifyUser(BBB) //modifyUser Received Vaule &{BBB 100}  //这个时候BBB已经改了
+
+	go printUser(c) //printUser goRoutine called &{AAA 25}  //但是写入管道的还是改之前的BBB
+
+	time.Sleep(3 * time.Second)
+	fmt.Println(BBB) //&{B-B-B 100}
+
+	fmt.Println(AAA) //{AAA 25}
+
 }

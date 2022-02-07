@@ -8,17 +8,15 @@ import (
 /**
  * 1) 数组的插入、删除、按照下标随机访问操作；
  * 2）数组中的数据是int类型的；
- *
- * Author: leo
  */
 
 type Array struct {
 	data   []int
-	length uint
+	length int
 }
 
 //为数组初始化内存
-func NewArray(capacity uint) *Array {
+func NewArray(capacity int) *Array {
 	if capacity == 0 {
 		return nil
 	}
@@ -28,20 +26,20 @@ func NewArray(capacity uint) *Array {
 	}
 }
 
-func (this *Array) Len() uint {
+func (this *Array) Len() int {
 	return this.length
 }
 
 //判断索引是否越界
-func (this *Array) isIndexOutOfRange(index uint) bool {
-	if index >= uint(cap(this.data)) {
+func (this *Array) isIndexOutOfRange(index int) bool {
+	if index >= cap(this.data) {
 		return true
 	}
 	return false
 }
 
 //通过索引查找数组，索引范围[0,n-1]
-func (this *Array) Find(index uint) (int, error) {
+func (this *Array) Find(index int) (int, error) {
 	if this.isIndexOutOfRange(index) {
 		return 0, errors.New("out of index range")
 	}
@@ -49,8 +47,8 @@ func (this *Array) Find(index uint) (int, error) {
 }
 
 //插入数值到索引index上
-func (this *Array) Insert(index uint, v int) error {
-	if this.Len() == uint(cap(this.data)) {
+func (this *Array) Insert(index int, v int) error {
+	if this.Len() == cap(this.data) {
 		return errors.New("full array")
 	}
 	if index != this.length && this.isIndexOutOfRange(index) {
@@ -65,12 +63,13 @@ func (this *Array) Insert(index uint, v int) error {
 	return nil
 }
 
+//插入到尾端
 func (this *Array) InsertToTail(v int) error {
 	return this.Insert(this.Len(), v)
 }
 
 //删除索引index上的值
-func (this *Array) Delete(index uint) (int, error) {
+func (this *Array) Delete(index int) (int, error) {
 	if this.isIndexOutOfRange(index) {
 		return 0, errors.New("out of index range")
 	}
@@ -85,7 +84,7 @@ func (this *Array) Delete(index uint) (int, error) {
 //打印数列
 func (this *Array) Print() {
 	var format string
-	for i := uint(0); i < this.Len(); i++ {
+	for i := 0; i < this.Len(); i++ {
 		format += fmt.Sprintf("|%+v", this.data[i])
 	}
 	fmt.Println(format)

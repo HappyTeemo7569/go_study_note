@@ -1,19 +1,26 @@
 package my_array
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestInsert(t *testing.T) {
 	capacity := 10
 	arr := NewArray(int(capacity))
-	for i := 0; i < capacity-2; i++ {
+	for i := 0; i < capacity*20 +1; i++ {
 		err := arr.Insert(int(i), i+1)
 		if nil != err {
 			t.Fatal(err.Error())
 		}
 	}
 	arr.Print()
+
+	len := arr.length
+	fmt.Println(len)
+
+	fmt.Println(arr.Free())
+	// cap(arr.data)
 
 	arr.Insert(int(6), 999)
 	arr.Print()

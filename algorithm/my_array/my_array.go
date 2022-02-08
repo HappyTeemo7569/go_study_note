@@ -5,14 +5,12 @@ import (
 	"fmt"
 )
 
-/**
- * 1) 数组的插入、删除、按照下标随机访问操作；
- * 2）数组中的数据是int类型的；
- */
 
 type Array struct {
 	data   []int
+	newData []int
 	length int
+	free int
 }
 
 //为数组初始化内存
@@ -23,6 +21,7 @@ func NewArray(capacity int) *Array {
 	return &Array{
 		data:   make([]int, capacity, capacity),
 		length: 0,
+		free:capacity,
 	}
 }
 
@@ -30,9 +29,13 @@ func (this *Array) Len() int {
 	return this.length
 }
 
+func (this *Array) Free() int   {
+	return this.free
+}
+
 //判断索引是否越界
 func (this *Array) isIndexOutOfRange(index int) bool {
-	if index >= cap(this.data) {
+	if index >= this.Len() {
 		return true
 	}
 	return false
@@ -46,10 +49,22 @@ func (this *Array) Find(index int) (int, error) {
 	return this.data[index], nil
 }
 
+func (this *Array)kuoRong()  {
+	this.newData = make([]int,2*this.length)
+	this.free = this.length
+
+	for k,v :=range this.data  {
+		this.newData[k] = v
+	}
+	this.data = make([]int,2*this.length)
+	this.data = this.newData
+}
+
 //插入数值到索引index上
 func (this *Array) Insert(index int, v int) error {
-	if this.Len() == cap(this.data) {
-		return errors.New("full array")
+	if this.free == 0 {
+		this.kuoRong()
+		//return errors.New("full array")
 	}
 	if index != this.length && this.isIndexOutOfRange(index) {
 		return errors.New("out of index range")
@@ -60,6 +75,7 @@ func (this *Array) Insert(index int, v int) error {
 	}
 	this.data[index] = v
 	this.length++
+	this.free--
 	return nil
 }
 

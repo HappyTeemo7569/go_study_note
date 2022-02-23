@@ -1,4 +1,4 @@
-package my_list
+package list
 
 const (
 	MAXSIZE = 20
@@ -46,5 +46,5 @@ type MyList interface {
 	ListDelete(index int, e *ElemType) bool
 
 	Echo()
-	Test()
+	//Test()
 }

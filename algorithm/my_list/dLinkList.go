@@ -3,6 +3,7 @@ package my_list
 import (
 	"fmt"
 	"math"
+	"my_go/dataStructure/list"
 )
 
 //双向循环链表
@@ -12,7 +13,7 @@ type DLinkList struct {
 }
 
 type DNode struct {
-	Data  ElemType
+	Data  list.ElemType
 	Next  *DNode //直接后继指针
 	Prior *DNode //直接前驱指针
 }
@@ -46,7 +47,7 @@ func (l *DLinkList) ListLength() int {
 }
 
 //查  index可以正 可以负 负表示往前找
-func (l *DLinkList) GetElem(index int, e *ElemType) bool {
+func (l *DLinkList) GetElem(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -54,7 +55,7 @@ func (l *DLinkList) GetElem(index int, e *ElemType) bool {
 
 	i := int(math.Abs(float64(index)))
 
-	if index > MAXSIZE {
+	if index > list.MAXSIZE {
 		index = index + 1 //跳过头结点
 	} else if index < 0 {
 		index = index - 1 //跳过头结点
@@ -83,7 +84,7 @@ func (l *DLinkList) GetElem(index int, e *ElemType) bool {
 }
 
 //按照元素进行查找，获取索引
-func (l *DLinkList) LocateElem(value ElemType) int {
+func (l *DLinkList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -100,7 +101,7 @@ func (l *DLinkList) LocateElem(value ElemType) int {
 		q = q.Next
 	}
 
-	if j >= MAXSIZE {
+	if j >= list.MAXSIZE {
 		return 0
 	}
 
@@ -108,9 +109,9 @@ func (l *DLinkList) LocateElem(value ElemType) int {
 }
 
 //按照索引进行插入数据  可以双向插入
-func (l *DLinkList) ListInsert(index int, value ElemType) bool {
+func (l *DLinkList) ListInsert(index int, value list.ElemType) bool {
 
-	if l.Length == MAXSIZE { //满了
+	if l.Length == list.MAXSIZE { //满了
 		fmt.Println("插入失败，队列已满")
 		return false
 	}
@@ -121,7 +122,7 @@ func (l *DLinkList) ListInsert(index int, value ElemType) bool {
 
 	i := int(math.Abs(float64(index)))
 
-	if index > MAXSIZE {
+	if index > list.MAXSIZE {
 		index = index + 1 //跳过头结点
 	} else if index < 0 {
 		index = index - 1 //跳过头结点
@@ -165,7 +166,7 @@ func (l *DLinkList) ListInsert(index int, value ElemType) bool {
 }
 
 //删
-func (l *DLinkList) ListDelete(index int, e *ElemType) bool {
+func (l *DLinkList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -218,7 +219,7 @@ func (l *DLinkList) Test() {
 	my_list.InitList()
 
 	for i := 1; i <= 10; i++ {
-		my_list.ListInsert(i, ElemType(i*i+1))
+		my_list.ListInsert(i, list.ElemType(i*i+1))
 		my_list.Echo()
 	}
 
@@ -232,7 +233,7 @@ func (l *DLinkList) Test() {
 
 	my_list.ListInsert(199, 99)
 
-	var e ElemType
+	var e list.ElemType
 
 	my_list.GetElem(my_list.ListLength()+1, &e)
 	fmt.Println("最后一个的下一个:", e)

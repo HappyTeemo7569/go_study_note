@@ -2,6 +2,8 @@ package my_list
 
 import (
 	"fmt"
+	"my_go/dataStructure/list"
+	"my_go/dataStructure/list/my_chain"
 )
 
 /**
@@ -14,7 +16,7 @@ import (
 算法复杂度：O(L/2)
 */
 
-func (l *LinkList) FindMidEle(e *ElemType) int {
+func (l *my_chain.my_chain) FindMidEle(e *my_chain.ElemType) int {
 	//search是快指针，middle是慢指针
 	search := l.Head
 	middle := l.Head
@@ -35,15 +37,15 @@ func (l *LinkList) FindMidEle(e *ElemType) int {
 	return i
 }
 
-func (l *LinkList) Test1() {
-	my_list := new(LinkList)
+func (l *my_chain.my_chain) Test1() {
+	my_list := new(my_chain.LinkList)
 	my_list.InitList()
 
 	for i := 1; i <= 11; i++ {
-		my_list.ListInsert(i, ElemType(i*i+1))
+		my_list.ListInsert(i, list.ElemType(i*i+1))
 		my_list.Echo()
 	}
-	var e ElemType
+	var e list.ElemType
 	index := my_list.FindMidEle(&e)
 	fmt.Println("中间值:", e, "位置", index)
 }
@@ -57,12 +59,12 @@ func (l *CLinkList) Test1() {
 	my_list.InitList()
 
 	for i := 1; i <= 19; i++ {
-		my_list.ListInsert(i, ElemType(i))
+		my_list.ListInsert(i, list.ElemType(i))
 		//my_list.Echo()
 	}
-	var e ElemType
+	var e list.ElemType
 
-	var s1 []ElemType //创建nil切换
+	var s1 []list.ElemType //创建nil切换
 
 	cur := my_list.Head.Next
 	for i := 1; my_list.ListEmpty() != true; i++ {
@@ -123,7 +125,7 @@ func (l *CLinkList) Test2() {
 			}
 		}
 
-		start.Data = ElemType(card_num)
+		start.Data = list.ElemType(card_num)
 		fmt.Println(card_num)
 		my_list.Echo()
 
@@ -142,7 +144,7 @@ func (l *CLinkList) Test2() {
 	fmt.Println("开始输出")
 	start = my_list.Head
 	card_num = 1
-	var e ElemType
+	var e list.ElemType
 	for i := 0; i < card_count; i++ {
 
 		for j := 1; j <= card_num; j++ {

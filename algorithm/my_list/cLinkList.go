@@ -2,16 +2,18 @@ package my_list
 
 import (
 	"fmt"
+	"my_go/dataStructure/list"
+	"my_go/dataStructure/list/my_chain"
 )
 
 type CLinkList struct {
-	Head   *Node
+	Head   *my_chain.Node
 	Length int
 }
 
 //初始化列表
 func (l *CLinkList) InitList() {
-	l.Head = new(Node)
+	l.Head = new(my_chain.Node)
 	l.Head.Next = l.Head //指向自己
 	l.Length = 0
 }
@@ -45,7 +47,7 @@ func (l *CLinkList) ListLength() int {
 }
 
 //查
-func (l *CLinkList) GetElem(index int, e *ElemType) bool {
+func (l *CLinkList) GetElem(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -55,7 +57,7 @@ func (l *CLinkList) GetElem(index int, e *ElemType) bool {
 	//	return false
 	//}
 
-	if index > MAXSIZE {
+	if index > list.MAXSIZE {
 		index = index + 1 //跳过头结点
 	}
 	j := 1
@@ -75,7 +77,7 @@ func (l *CLinkList) GetElem(index int, e *ElemType) bool {
 }
 
 //按照元素进行查找，获取索引
-func (l *CLinkList) LocateElem(value ElemType) int {
+func (l *CLinkList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -92,7 +94,7 @@ func (l *CLinkList) LocateElem(value ElemType) int {
 		q = q.Next
 	}
 
-	if j >= MAXSIZE {
+	if j >= list.MAXSIZE {
 		return 0
 	}
 
@@ -100,9 +102,9 @@ func (l *CLinkList) LocateElem(value ElemType) int {
 }
 
 //按照索引进行插入数据
-func (l *CLinkList) ListInsert(index int, value ElemType) bool {
+func (l *CLinkList) ListInsert(index int, value list.ElemType) bool {
 
-	if l.Length == MAXSIZE { //满了
+	if l.Length == list.MAXSIZE { //满了
 		fmt.Println("插入失败，队列已满")
 		return false
 	}
@@ -119,7 +121,7 @@ func (l *CLinkList) ListInsert(index int, value ElemType) bool {
 	}
 
 	//新建节点，加入链表
-	n := new(Node)
+	n := new(my_chain.Node)
 	n.Next = front.Next
 	n.Data = value
 	front.Next = n
@@ -130,7 +132,7 @@ func (l *CLinkList) ListInsert(index int, value ElemType) bool {
 }
 
 //删
-func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
+func (l *CLinkList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -202,7 +204,7 @@ func (l *CLinkList) Test() {
 	my_list.InitList()
 
 	for i := 1; i <= 19; i++ {
-		my_list.ListInsert(i, ElemType(i*i+1))
+		my_list.ListInsert(i, list.ElemType(i*i+1))
 		my_list.Echo()
 	}
 
@@ -211,7 +213,7 @@ func (l *CLinkList) Test() {
 	my_list.Echo()
 	my_list.ListInsert(199, 99)
 
-	var e ElemType
+	var e list.ElemType
 
 	my_list.GetElem(my_list.ListLength()+1, &e)
 	fmt.Println("最后一个的下一个:", e)
@@ -248,8 +250,8 @@ func (l *CLinkList) Test() {
 	my_list_b.InitList()
 
 	for i := 1; i <= 10; i++ {
-		my_list_a.ListInsert(i, ElemType(2*i+1))
-		my_list_b.ListInsert(i, ElemType(3*i+1))
+		my_list_a.ListInsert(i, list.ElemType(2*i+1))
+		my_list_b.ListInsert(i, list.ElemType(3*i+1))
 	}
 
 	my_list_a.Echo()

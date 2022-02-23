@@ -1,10 +1,13 @@
 package my_list
 
-import "fmt"
+import (
+	"fmt"
+	"my_go/dataStructure/list"
+)
 
 //顺序存储
 type SqList struct {
-	Element [MAXSIZE]ElemType
+	Element [list.MAXSIZE]list.ElemType
 	Length  int
 }
 
@@ -12,8 +15,8 @@ type SqList struct {
 func (l *SqList) InitList() {
 	l.Length = 0
 
-	for i := 0; i < MAXSIZE; i++ {
-		l.Element[i] = EmptyElement
+	for i := 0; i < list.MAXSIZE; i++ {
+		l.Element[i] = list.EmptyElement
 	}
 }
 
@@ -21,8 +24,8 @@ func (l *SqList) InitList() {
 func (l *SqList) ClearList() {
 	l.Length = 0
 
-	for i := 0; i < MAXSIZE; i++ {
-		l.Element[i] = EmptyElement
+	for i := 0; i < list.MAXSIZE; i++ {
+		l.Element[i] = list.EmptyElement
 	}
 }
 
@@ -40,7 +43,7 @@ func (l *SqList) ListLength() int {
 }
 
 //获取指定位置的元素，返回在指针元素中
-func (l *SqList) GetElem(index int, e *ElemType) bool {
+func (l *SqList) GetElem(index int, e *list.ElemType) bool {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -56,7 +59,7 @@ func (l *SqList) GetElem(index int, e *ElemType) bool {
 }
 
 //查找元素在线性表中的位置
-func (l *SqList) LocateElem(value ElemType) int {
+func (l *SqList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -64,21 +67,21 @@ func (l *SqList) LocateElem(value ElemType) int {
 	}
 
 	i := 0
-	for ; i < MAXSIZE; i++ {
+	for ; i < list.MAXSIZE; i++ {
 		if l.Element[i] == value {
 			break
 		}
 	}
-	if i >= MAXSIZE {
+	if i >= list.MAXSIZE {
 		return 0
 	}
 	return i + 1
 }
 
 //向线性表中指定位置插入元素
-func (l *SqList) ListInsert(index int, value ElemType) bool {
+func (l *SqList) ListInsert(index int, value list.ElemType) bool {
 
-	if l.Length == MAXSIZE { //满了
+	if l.Length == list.MAXSIZE { //满了
 		fmt.Println("插入失败，队列已满")
 		return false
 	}
@@ -97,7 +100,7 @@ func (l *SqList) ListInsert(index int, value ElemType) bool {
 }
 
 //删除指定位置处的元素  并将删除的元素给e
-func (l *SqList) ListDelete(index int, e *ElemType) bool {
+func (l *SqList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -112,7 +115,7 @@ func (l *SqList) ListDelete(index int, e *ElemType) bool {
 	for k := index; k < l.Length; k++ {
 		l.Element[k-1] = l.Element[k]
 	}
-	l.Element[l.Length-1] = EmptyElement
+	l.Element[l.Length-1] = list.EmptyElement
 	l.Length--
 	return true
 }
@@ -124,7 +127,7 @@ func (l *SqList) Echo() {
 
 //实现两个线性表的并集
 func (la *SqList) UnionL(lb *SqList) {
-	var e ElemType
+	var e list.ElemType
 	//i := 0
 
 	La_length := la.ListLength()
@@ -148,7 +151,7 @@ func (l *SqList) Test() {
 	my_list.InitList()
 
 	for i := 1; i <= 10; i++ {
-		my_list.ListInsert(i, ElemType(i*i+1))
+		my_list.ListInsert(i, list.ElemType(i*i+1))
 		my_list.Echo()
 	}
 
@@ -157,7 +160,7 @@ func (l *SqList) Test() {
 	my_list.Echo()
 	my_list.ListInsert(199, 99)
 
-	var e ElemType
+	var e list.ElemType
 
 	my_list.ListDelete(1, &e)
 	fmt.Println("删除头元素:", e)
@@ -186,8 +189,8 @@ func (l *SqList) Test() {
 	my_list_a := new(SqList)
 	my_list_b := new(SqList)
 	for i := 1; i <= 10; i++ {
-		my_list_a.ListInsert(i, ElemType(2*i+1))
-		my_list_b.ListInsert(i, ElemType(3*i+1))
+		my_list_a.ListInsert(i, list.ElemType(2*i+1))
+		my_list_b.ListInsert(i, list.ElemType(3*i+1))
 	}
 
 	my_list_a.Echo()

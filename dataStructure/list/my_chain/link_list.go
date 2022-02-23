@@ -1,7 +1,8 @@
-package my_list
+package my_chain
 
 import (
 	"fmt"
+	"my_go/dataStructure/list"
 )
 
 //链式存储
@@ -15,7 +16,7 @@ type LinkList struct {
 }
 
 type Node struct {
-	Data ElemType
+	Data list.ElemType
 	Next *Node
 }
 
@@ -54,7 +55,7 @@ func (l *LinkList) ListLength() int {
 }
 
 //查
-func (l *LinkList) GetElem(index int, e *ElemType) bool {
+func (l *LinkList) GetElem(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -81,7 +82,7 @@ func (l *LinkList) GetElem(index int, e *ElemType) bool {
 }
 
 //按照元素进行查找，获取索引
-func (l *LinkList) LocateElem(value ElemType) int {
+func (l *LinkList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -98,7 +99,7 @@ func (l *LinkList) LocateElem(value ElemType) int {
 		q = q.Next
 	}
 
-	if j >= MAXSIZE {
+	if j >= list.MAXSIZE {
 		return 0
 	}
 
@@ -106,14 +107,14 @@ func (l *LinkList) LocateElem(value ElemType) int {
 }
 
 //按照索引进行插入数据
-func (l *LinkList) ListInsert(index int, value ElemType) bool {
+func (l *LinkList) ListInsert(index int, value list.ElemType) bool {
 
-	if l.Length == MAXSIZE { //满了
+	if l.Length == list.MAXSIZE { //满了
 		fmt.Println("插入失败，队列已满")
 		return false
 	}
 	if index < 1 || index > l.Length+1 {
-		fmt.Println("插入失败，位置错误")
+		fmt.Println(fmt.Sprintf("插入失败，位置错误:%d", index))
 		return false
 	}
 
@@ -136,7 +137,7 @@ func (l *LinkList) ListInsert(index int, value ElemType) bool {
 }
 
 //删
-func (l *LinkList) ListDelete(index int, e *ElemType) bool {
+func (l *LinkList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
 		return false
@@ -179,64 +180,4 @@ func (l *LinkList) Echo() {
 		curItem = curItem.Next
 	}
 	fmt.Println()
-}
-
-func (l *LinkList) Test() {
-	fmt.Println("测试开始")
-
-	my_list := new(LinkList)
-	my_list.InitList()
-
-	for i := 1; i <= 10; i++ {
-		my_list.ListInsert(i, ElemType(i*i+1))
-		my_list.Echo()
-	}
-
-	fmt.Println("第5个这里插入256")
-	my_list.ListInsert(5, 256)
-	my_list.Echo()
-	my_list.ListInsert(199, 99)
-
-	var e ElemType
-
-	my_list.ListDelete(1, &e)
-	fmt.Println("删除头元素:", e)
-	my_list.Echo()
-
-	my_list.ListDelete(my_list.ListLength(), &e)
-	fmt.Println("删除尾元素:", e)
-	my_list.Echo()
-
-	my_list.GetElem(6, &e)
-	fmt.Println("获取第6个:", e)
-
-	fmt.Println("256的位置:", my_list.LocateElem(256))
-
-	fmt.Println("长度：", my_list.ListLength())
-
-	fmt.Println("开始清空")
-	my_list.ClearList()
-	if my_list.ListEmpty() {
-		fmt.Println("已清空")
-		my_list.Echo()
-	}
-
-	//fmt.Println("准备合并")
-	//
-	//my_list_a := new(SqList)
-	//my_list_b := new(SqList)
-	//for i := 1; i <= 10; i++ {
-	//	my_list_a.ListInsert(i, ElemType(2*i+1))
-	//	my_list_b.ListInsert(i, ElemType(3*i+1))
-	//}
-	//
-	//my_list_a.Echo()
-	//my_list_b.Echo()
-	//
-	//fmt.Println("合并后")
-	//
-	//my_list_a.UnionL(my_list_b)
-	//my_list_a.Echo()
-
-	fmt.Println("测试完成")
 }

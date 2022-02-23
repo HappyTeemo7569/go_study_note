@@ -1,8 +1,7 @@
-package my_list
+package list
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
 	"my_go/dataStructure/list/my_chain"
 )
 
@@ -42,10 +41,10 @@ func (l *my_chain.my_chain) Test1() {
 	my_list.InitList()
 
 	for i := 1; i <= 11; i++ {
-		my_list.ListInsert(i, list.ElemType(i*i+1))
+		my_list.ListInsert(i, ElemType(i*i+1))
 		my_list.Echo()
 	}
-	var e list.ElemType
+	var e ElemType
 	index := my_list.FindMidEle(&e)
 	fmt.Println("中间值:", e, "位置", index)
 }
@@ -54,17 +53,17 @@ func (l *my_chain.my_chain) Test1() {
 约瑟夫环
 19个人报数，1-3，当谁报数为3，谁就淘汰。现在获取他们淘汰的顺序
 */
-func (l *CLinkList) Test1() {
+func (l *my_list.CLinkList) Test1() {
 	my_list := new(CLinkList)
 	my_list.InitList()
 
 	for i := 1; i <= 19; i++ {
-		my_list.ListInsert(i, list.ElemType(i))
+		my_list.ListInsert(i, ElemType(i))
 		//my_list.Echo()
 	}
-	var e list.ElemType
+	var e ElemType
 
-	var s1 []list.ElemType //创建nil切换
+	var s1 []ElemType //创建nil切换
 
 	cur := my_list.Head.Next
 	for i := 1; my_list.ListEmpty() != true; i++ {
@@ -101,7 +100,7 @@ func (l *CLinkList) Test1() {
 
 注意：翻开一张少一张
 */
-func (l *CLinkList) Test2() {
+func (l *my_list.CLinkList) Test2() {
 
 	card_num := 1 //卡牌编号
 
@@ -125,7 +124,7 @@ func (l *CLinkList) Test2() {
 			}
 		}
 
-		start.Data = list.ElemType(card_num)
+		start.Data = ElemType(card_num)
 		fmt.Println(card_num)
 		my_list.Echo()
 
@@ -144,7 +143,7 @@ func (l *CLinkList) Test2() {
 	fmt.Println("开始输出")
 	start = my_list.Head
 	card_num = 1
-	var e list.ElemType
+	var e ElemType
 	for i := 0; i < card_count; i++ {
 
 		for j := 1; j <= card_num; j++ {

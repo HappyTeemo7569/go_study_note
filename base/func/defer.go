@@ -8,6 +8,11 @@ func test(x int) {
 }
 
 func main() {
+	panicDefer()
+	//panicNoDefer()
+}
+
+func panicDefer() {
 	defer func() {
 		recover()
 		fmt.Println("没事，我兜住了")
@@ -20,9 +25,20 @@ func main() {
 
 	/*
 		   运行结果：
-		    bbbbbbbb
-			aaaaaaaa
-			我要崩溃了
-			没事，我兜住了
+		bbbbbbbb
+		aaaaaaaa
+		我要崩溃了
+		没事，我兜住了
 	*/
+}
+
+func panicNoDefer() {
+
+	panic(11) //这里就直接崩溃退出了，兜不住的。
+
+	defer func() {
+		recover()
+		fmt.Println("没事，我兜住了")
+	}()
+
 }

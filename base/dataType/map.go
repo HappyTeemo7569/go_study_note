@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main()  {
+func main() {
 	var m1 map[int]string  //只是声明一个map，没有初始化, 此为空(nil)map
 	fmt.Println(m1 == nil) //true
 	//m1[1] = "mike" //err, panic: assignment to entry in nil map
@@ -15,4 +15,3 @@ func main()  {
 	m4 := make(map[int]string, 10) //第2个参数指定容量
 	fmt.Println(m4)                //map[]
 }
-

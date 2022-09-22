@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+/**
+匿名函数
+*/
+
 func main() {
 	i := 0
 	str := "mike"

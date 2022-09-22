@@ -7,10 +7,10 @@ func main() {
 	fmt.Println(len(slice), cap(slice)) //10 10
 
 	s1 := slice[2:5]
-	fmt.Println(s1) //[2 3 20]
+	fmt.Println(s1)               //[2 3 20]
 	fmt.Println(len(s1), cap(s1)) //3 8
 
-	s2 := s1[2:6:7] // 4,5,6,7
+	s2 := s1[2:6:7]               // 4,5,6,7
 	fmt.Println(len(s2), cap(s2)) // 4 5
 
 	s2 = append(s2, 100)

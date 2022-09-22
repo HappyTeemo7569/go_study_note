@@ -40,5 +40,5 @@ type MyTask interface {
 	DestroyStack() bool
 
 	Echo()
-	Test()
+	//Test()
 }

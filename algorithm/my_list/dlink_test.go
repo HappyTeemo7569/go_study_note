@@ -5,14 +5,13 @@ import (
 	"testing"
 )
 
-func TestCLink(t *testing.T) {
-
+func TestDLink(t *testing.T) {
 	fmt.Println("测试开始")
 
-	my_list := new(CLinkList)
+	my_list := new(DLinkList)
 	my_list.InitList()
 
-	for i := 1; i <= 19; i++ {
+	for i := 1; i <= 10; i++ {
 		my_list.ListInsert(i, ElemType(i*i+1))
 		my_list.Echo()
 	}
@@ -20,6 +19,11 @@ func TestCLink(t *testing.T) {
 	fmt.Println("第5个这里插入256")
 	my_list.ListInsert(5, 256)
 	my_list.Echo()
+
+	fmt.Println("第-5个这里插入256")
+	my_list.ListInsert(-5, 256)
+	my_list.Echo()
+
 	my_list.ListInsert(199, 99)
 
 	var e ElemType
@@ -51,38 +55,5 @@ func TestCLink(t *testing.T) {
 		my_list.Echo()
 	}
 
-	fmt.Println("准备合并")
-
-	my_list_a := new(CLinkList)
-	my_list_a.InitList()
-	my_list_b := new(CLinkList)
-	my_list_b.InitList()
-
-	for i := 1; i <= 10; i++ {
-		my_list_a.ListInsert(i, ElemType(2*i+1))
-		my_list_b.ListInsert(i, ElemType(3*i+1))
-	}
-
-	my_list_a.Echo()
-	my_list_b.Echo()
-
-	fmt.Println("合并后")
-
-	my_list_a.Merge(my_list_b)
-	my_list_a.Echo()
-	my_list_a.GetElem(my_list_a.ListLength()+1, &e)
-	fmt.Println("最后一个的下一个:", e)
-
 	fmt.Println("测试完成")
-
-}
-
-func Test_DealCards(t *testing.T) {
-	my_list := new(CLinkList)
-	my_list.DealCards()
-}
-
-func Test_JosephRing(t *testing.T) {
-	my_list := new(CLinkList)
-	my_list.JosephRing()
 }

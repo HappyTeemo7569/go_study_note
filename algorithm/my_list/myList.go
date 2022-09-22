@@ -46,5 +46,5 @@ type MyList interface {
 	ListDelete(index int, e *ElemType) bool
 
 	Echo()
-	Test()
+	//Test()
 }

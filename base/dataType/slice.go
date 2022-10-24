@@ -22,4 +22,11 @@ func main() {
 	s1[2] = 20
 
 	fmt.Println(slice) //[0 1 2 3 20 5 6 7 100 9]
+
+	delete_index := 2
+	//查看删除位置之前的元素和 之后的元素
+	fmt.Println(slice[:delete_index], slice[delete_index+1:])
+	//将删除点前后的元素连接起来
+	slice = append(slice[:delete_index], slice[delete_index+1:]...)
+	fmt.Println(slice)
 }

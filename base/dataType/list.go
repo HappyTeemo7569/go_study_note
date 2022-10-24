@@ -19,7 +19,7 @@ func main() {
 	l.InsertBefore("test_before_2", element)
 	showList(l)
 	l.Remove(element)
-	showList(l)
+	showList2(l)
 
 }
 
@@ -29,6 +29,14 @@ func showList(l *list.List) {
 	for i := 0; i < l.Len(); i++ {
 		fmt.Println(e_tmp.Value)
 		e_tmp = e_tmp.Next()
+	}
+	fmt.Println("-------------------")
+}
+
+func showList2(l *list.List) {
+	fmt.Println("-------------------")
+	for i := l.Front(); i != nil; i = i.Next() {
+		fmt.Println(i.Value)
 	}
 	fmt.Println("-------------------")
 }

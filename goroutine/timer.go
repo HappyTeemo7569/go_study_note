@@ -5,30 +5,33 @@ import (
 	"time"
 )
 
-func startTimer(f func(now time.Time)) chan bool {
-	done := make(chan bool, 1)
-	go func() {
-		t := time.NewTimer(time.Second * 3)
-		defer t.Stop()
-		select {
-		case now := <-t.C:
-			f(now)
-		case <-done:
-			fmt.Println("done")
-			return
-		}
-	}()
-	return done
-}
-
 func main() {
-	done := startTimer(func(now time.Time) {
-		fmt.Println(now)
-	})
 
-	//提前终止
-	done <- false
+	// 创建一个断续器，每500毫秒触发一次
+	ticker := time.NewTicker(time.Millisecond * 500)
+	// 创建一个计时器，2秒后触发
+	stopper := time.NewTimer(time.Second * 2)
 
-	time.Sleep(5 * time.Second)
-	close(done)
+	// 声明计数变量
+	var i int
+
+	// 不断的检查通道情况
+	for {
+		// 多路复用通道
+		select {
+		case <-stopper.C: // 计时器到时了
+			fmt.Println("stop")
+			// 跳出循环
+			goto StopHere
+		case <-ticker.C: // 断续器触发了
+			// 记录触发了多少次
+			i++
+			fmt.Println("tick", i)
+		}
+	}
+
+	// 退出的标签，使用goto跳转
+StopHere:
+	fmt.Println("done")
+
 }

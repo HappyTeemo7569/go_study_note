@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+/**
+sync. Mutex 互斥锁
+sync.RWMutex 读写互斥锁
+*/
+
 var counter_r int = 0
 
 func add_r(a, b int, lock *sync.RWMutex) {
@@ -17,6 +22,7 @@ func add_r(a, b int, lock *sync.RWMutex) {
 	lock.Unlock()
 }
 
+//读写锁测试
 func rLockTest() {
 	start := time.Now()
 	lock := &sync.RWMutex{}
@@ -40,4 +46,28 @@ func rLockTest() {
 
 func main() {
 	rLockTest()
+	lockTest()
+}
+
+var (
+	count      int
+	countGuard sync.Mutex
+)
+
+func GetCount() int {
+	countGuard.Lock()
+	defer countGuard.Unlock()
+	return count
+}
+
+func SetCount(c int) {
+	countGuard.Lock()
+	defer countGuard.Unlock()
+	count = c
+}
+
+//互斥锁测试
+func lockTest() {
+	SetCount(1)
+	fmt.Println(GetCount())
 }

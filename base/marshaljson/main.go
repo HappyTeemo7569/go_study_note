@@ -2,6 +2,9 @@ package main
 
 import "fmt"
 
+/**
+结构体格式化json输出
+*/
 func main() {
 
 	// 声明技能结构

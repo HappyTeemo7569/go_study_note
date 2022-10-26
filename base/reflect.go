@@ -79,6 +79,19 @@ func reflectStruct() {
 	// 遍历结构体所有成员
 	for i := 0; i < typeOfCat.NumField(); i++ {
 		// 获取每个成员的结构体字段类型
+		/**
+
+		type StructField struct {
+			Name      string    // field name
+			PkgPath   string    // PkgPath is the package path that qualifies a lower case (unexported)
+								// 字段在结构体的路径
+			Type      Type      // field type
+			Tag       StructTag // field tag string
+			Offset    uintptr   // offset within struct, in bytes
+			Index     []int     // index sequence for Type.FieldByIndex
+			Anonymous bool      // is an embedded field  是否是匿名
+		}
+		*/
 		fieldType := typeOfCat.Field(i)
 		// 输出成员名和tag
 		fmt.Printf("name: %v  tag: '%v'\n", fieldType.Name, fieldType.Tag)

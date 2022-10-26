@@ -38,6 +38,6 @@ func rLockTest() {
 	fmt.Println("程序执行耗时(s)：", consume)
 }
 
-func RunL() {
+func main() {
 	rLockTest()
 }

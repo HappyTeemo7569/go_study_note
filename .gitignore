@@ -4,7 +4,6 @@
 *.patch
 .idea/
 .git/
-runtime/
 vendor/
 temp/
 *.lock
@@ -12,4 +11,3 @@ temp/
 .env
 .DS_Store
 public/devtool/
-.idea/

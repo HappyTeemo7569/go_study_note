@@ -6,19 +6,16 @@ import (
 	"net"
 )
 
+//连接器 主要用来建立TCP连接
 type socketConnector struct {
 	socketPeer
 	internal.SessionManager
-
 	ses cellnet.Session
 }
 
 func (c *socketConnector) Start(address string) cellnet.Peer {
-
 	c.address = address
-
 	go c.connect(address)
-
 	return c
 }
 
@@ -35,7 +32,6 @@ func (c *socketConnector) connect(address string) {
 
 	// 尝试用Socket连接地址
 	conn, err := net.Dial("tcp", address)
-
 	ses := newSession(conn, &c.socketPeer)
 	c.ses = ses
 
@@ -46,7 +42,6 @@ func (c *socketConnector) connect(address string) {
 	}
 
 	log.Infof("#connected(%s) %s", c.Name(), c.address)
-
 	ses.start()
 
 }

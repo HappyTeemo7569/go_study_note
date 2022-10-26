@@ -4,6 +4,7 @@ import (
 	"runtime/debug"
 )
 
+//事件队列
 type EventQueue interface {
 	StartLoop()
 	StopLoop(result int)

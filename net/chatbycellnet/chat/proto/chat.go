@@ -17,7 +17,7 @@ type ChatACK struct {
 }
 
 func init() {
-
+	//选择使用什么传输方式
 	cellnet.RegisterMessageMeta("json", "proto.ChatREQ", reflect.TypeOf((*ChatREQ)(nil)).Elem(), 1)
 	cellnet.RegisterMessageMeta("json", "proto.ChatACK", reflect.TypeOf((*ChatACK)(nil)).Elem(), 2)
 }

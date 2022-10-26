@@ -10,18 +10,13 @@ import (
 
 // Socket会话
 type socketSession struct {
-
 	// Socket原始连接
 	conn net.Conn
-
 	// 退出同步器
 	exitSync sync.WaitGroup
-
 	// 归属的通讯端
 	peer *socketPeer
-
-	id int64
-
+	id   int64
 	// 发送队列
 	sendChan chan interface{}
 }

@@ -5,15 +5,6 @@ import (
 	"reflect"
 )
 
-func main() {
-	reflectTypeOf()
-	fmt.Println("-----------------")
-	reflectStruct()
-	fmt.Println("-----------------")
-	reflectValue()
-	fmt.Println("-----------------")
-}
-
 //获取类型
 func reflectTypeOf() {
 	var a int
@@ -128,4 +119,40 @@ func reflectValue() {
 
 	fmt.Println(getA, getA2)
 
+}
+
+//通过反射设置值
+/**
+1. 要可被寻址
+*/
+func reflectSetValue() {
+	var a int = 1024
+
+	//获取变量的反射值对象
+	//valueOfA := reflect.ValueOf(a)
+	//取出元素
+	//valueOfAElem := valueOfA.Elem() //会报错，因为不可被寻址 Elem的参数需要是指针
+
+	//获取变量的反射值对象 （a的地址）
+	valueOfA := reflect.ValueOf(&a)
+	//取出元素（a的值）
+	valueOfAElem := valueOfA.Elem()
+
+	fmt.Println(valueOfAElem.Int()) //1024
+	valueOfAElem.SetInt(1)
+	fmt.Println(valueOfAElem.Int())    //1
+	fmt.Println(valueOfAElem.String()) //<int Value>
+	//fmt.Println(valueOfAElem.Float()) // panic  call of reflect.Value.Float on int Value
+
+}
+
+func main() {
+	reflectTypeOf()
+	fmt.Println("-----------------")
+	reflectStruct()
+	fmt.Println("-----------------")
+	reflectValue()
+	fmt.Println("-----------------")
+	reflectSetValue()
+	fmt.Println("-----------------")
 }

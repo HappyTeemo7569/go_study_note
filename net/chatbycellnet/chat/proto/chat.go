@@ -1,8 +1,7 @@
 package proto
 
 import (
-	"chapter13/chatbycellnet/cellnet"
-	_ "chapter13/chatbycellnet/cellnet/codec/json"
+	"my_go/net/chatbycellnet/cellnet"
 	"reflect"
 )
 

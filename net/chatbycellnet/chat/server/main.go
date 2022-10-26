@@ -1,12 +1,13 @@
 package main
 
 import (
-	"chapter13/chatbycellnet/cellnet"
-	"chapter13/chatbycellnet/cellnet/packet"
-	"chapter13/chatbycellnet/cellnet/socket"
-	"chapter13/chatbycellnet/chat/proto"
 	"fmt"
 	"github.com/davyxu/golog"
+	"my_go/net/chatbycellnet/cellnet"
+	_ "my_go/net/chatbycellnet/cellnet/codec/json"
+	"my_go/net/chatbycellnet/cellnet/packet"
+	"my_go/net/chatbycellnet/cellnet/socket"
+	"my_go/net/chatbycellnet/chat/proto"
 )
 
 var log = golog.New("main")

@@ -9,8 +9,8 @@ type RecvEvent struct {
 
 // 会话开始发送数据事件
 type SendEvent struct {
-	Ses cellnet.Session
-	Msg interface{} // 用户需要发送的消息
+	Ses cellnet.Session //Ses 表示事件发生时相关的会话，
+	Msg interface{}     // 用户需要发送的消息，内部保存消息的指针。
 }
 
 // 会话接收数据时发生错误的事件

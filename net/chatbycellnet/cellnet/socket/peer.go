@@ -2,6 +2,8 @@ package socket
 
 import "my_go/net/chatbycellnet/cellnet"
 
+//在连接器 接受器、会话中可以通过socketPeer 结构派发消息
+
 // 通讯端共享的数据
 type socketPeer struct {
 	// 事件处理函数回调

@@ -6,24 +6,18 @@ import (
 
 type EventQueue interface {
 	StartLoop()
-
 	StopLoop(result int)
-
 	// 等待退出
 	Wait() int
-
 	// 投递事件, 通过队列到达消费者端
 	Post(callback func())
-
 	// 是否捕获异常
 	EnableCapturePanic(v bool)
 }
 
 type eventQueue struct {
-	queue chan func()
-
-	exitSignal chan int
-
+	queue        chan func()
+	exitSignal   chan int
 	capturePanic bool
 }
 
@@ -34,29 +28,23 @@ func (q *eventQueue) EnableCapturePanic(v bool) {
 
 // 派发事件处理回调到队列中
 func (q *eventQueue) Post(callback func()) {
-
 	if callback == nil {
 		return
 	}
-
 	q.queue <- callback
 }
 
 // 保护调用用户函数
 func (q *eventQueue) protectedCall(callback func()) {
-
 	if callback == nil {
 		return
 	}
 
 	if q.capturePanic {
 		defer func() {
-
 			if err := recover(); err != nil {
-
 				debug.PrintStack()
 			}
-
 		}()
 	}
 
@@ -65,7 +53,6 @@ func (q *eventQueue) protectedCall(callback func()) {
 
 // 开启事件循环
 func (q *eventQueue) StartLoop() {
-
 	go func() {
 		for callback := range q.queue {
 			q.protectedCall(callback)
@@ -87,7 +74,6 @@ const DefaultQueueSize = 100
 
 // 创建默认长度的队列
 func NewEventQueue() EventQueue {
-
 	return NewEventQueueByLen(DefaultQueueSize)
 }
 

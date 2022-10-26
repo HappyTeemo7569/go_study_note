@@ -8,10 +8,8 @@ import (
 type Codec interface {
 	// 将数据转换为字节数组
 	Encode(interface{}) ([]byte, error)
-
 	// 将字节数组转换为数据
 	Decode([]byte, interface{}) error
-
 	// 编码器的名字
 	Name() string
 }
@@ -19,16 +17,13 @@ type Codec interface {
 var codecByName = map[string]Codec{}
 
 func RegisterCodec(c Codec) {
-
 	if _, ok := codecByName[c.Name()]; ok {
 		panic("duplicate codec: " + c.Name())
 	}
-
 	codecByName[c.Name()] = c
 }
 
 func FetchCodec(name string) Codec {
-
 	return codecByName[name]
 }
 
@@ -65,7 +60,6 @@ func DecodeMessage(msgid uint32, data []byte) (interface{}, error) {
 
 	// 创建消息
 	msg := reflect.New(meta.Type).Interface()
-
 	// 从字节数组转换为消息
 	err := meta.Codec.Decode(data, msg)
 	if err != nil {

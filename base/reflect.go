@@ -6,9 +6,16 @@ import (
 )
 
 func main() {
+	reflectTypeOf()
+	fmt.Println("-----------------")
 	reflectStruct()
+	fmt.Println("-----------------")
+	reflectValue()
+	fmt.Println("-----------------")
 }
-func reflectBase() {
+
+//获取类型
+func reflectTypeOf() {
 	var a int
 	//reflect.TypeOf() 取得变量 a 的类型对象 typeOfA，类型为 reflect.Type()。
 	typeOfA := reflect.TypeOf(a)
@@ -60,9 +67,9 @@ func reflectBase() {
 	fmt.Printf("name:'%v' kind:'%v'\n", typeOfCatPtr.Name(), typeOfCatPtr.Kind()) //指针变量的类型名称是空，不是 *cat。
 
 	// 取类型的元素
-	typeOfCat = typeOfCat.Elem() //等于取了指针的值 等效于	typeOfCat := reflect.TypeOf(cat{})
+	typeOfCat2 := typeOfCatPtr.Elem() //等于取了指针的值 等效于	typeOfCat := reflect.TypeOf(cat{})
 	// 显示反射类型对象的名称和种类
-	fmt.Printf("element name: '%v', element kind: '%v'\n", typeOfCat.Name(), typeOfCat.Kind())
+	fmt.Printf("element name: '%v', element kind: '%v'\n", typeOfCat2.Name(), typeOfCat2.Kind())
 
 }
 
@@ -78,9 +85,8 @@ func reflectStruct() {
 
 	// 遍历结构体所有成员
 	for i := 0; i < typeOfCat.NumField(); i++ {
-		// 获取每个成员的结构体字段类型
+		//根据索引获取结构体字段类型
 		/**
-
 		type StructField struct {
 			Name      string    // field name
 			PkgPath   string    // PkgPath is the package path that qualifies a lower case (unexported)
@@ -101,4 +107,25 @@ func reflectStruct() {
 		// 从tag中取出需要的tag
 		fmt.Println(catType.Tag.Get("json"), catType.Tag.Get("id"))
 	}
+
+	valueOfCat := reflect.ValueOf(ins)
+	//通过索引获取1这个位置的类型
+	//不建议使用，一旦1这个位置没有，或者类型不对，就会panic
+	fmt.Println(valueOfCat.FieldByIndex([]int{1}).Type())
+}
+
+//重新获得原始值
+func reflectValue() {
+	var a int = 1024
+
+	//获取变量的反射值对象
+	valueOfA := reflect.ValueOf(a)
+
+	//获取 interface { ｝类型的值，通过类型断 转换
+	var getA int = valueOfA.Interface().(int)
+	//获取 64 位的值，强制类型转换为 int 类型
+	var getA2 int = int(valueOfA.Int())
+
+	fmt.Println(getA, getA2)
+
 }

@@ -1,4 +1,4 @@
-package tscoket
+package tsocket
 
 func RunTCP() {
 	go func() {

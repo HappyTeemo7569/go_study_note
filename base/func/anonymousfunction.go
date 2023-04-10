@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 /**
-匿名函数
+匿名函数与闭包
 */
 
 func main() {

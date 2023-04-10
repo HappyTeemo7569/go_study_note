@@ -1,5 +1,9 @@
 package main
 
+/**
+类型转换
+*/
+
 func bool2int(b bool) int {
 	if b {
 		return 1

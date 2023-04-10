@@ -2,16 +2,16 @@ package my_array
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
+	"my_go/datastructure/list"
 )
 
-//顺序存储
+// 顺序存储
 type SqList struct {
 	Element [list.MAXSIZE]list.ElemType
 	Length  int
 }
 
-//初始化列表
+// 初始化列表
 func (l *SqList) InitList() {
 	l.Length = 0
 
@@ -20,7 +20,7 @@ func (l *SqList) InitList() {
 	}
 }
 
-//清空列表  和初始化一个样
+// 清空列表  和初始化一个样
 func (l *SqList) ClearList() {
 	l.Length = 0
 
@@ -29,7 +29,7 @@ func (l *SqList) ClearList() {
 	}
 }
 
-//判断是否为空
+// 判断是否为空
 func (l *SqList) ListEmpty() bool {
 	if l.Length == 0 {
 		return true
@@ -37,12 +37,12 @@ func (l *SqList) ListEmpty() bool {
 	return false
 }
 
-//获取长度
+// 获取长度
 func (l *SqList) ListLength() int {
 	return l.Length
 }
 
-//获取指定位置的元素，返回在指针元素中
+// 获取指定位置的元素，返回在指针元素中
 func (l *SqList) GetElem(index int, e *list.ElemType) bool {
 
 	if l.Length == 0 {
@@ -58,7 +58,7 @@ func (l *SqList) GetElem(index int, e *list.ElemType) bool {
 	return true
 }
 
-//查找元素在线性表中的位置
+// 查找元素在线性表中的位置
 func (l *SqList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
@@ -78,7 +78,7 @@ func (l *SqList) LocateElem(value list.ElemType) int {
 	return i + 1
 }
 
-//向线性表中指定位置插入元素
+// 向线性表中指定位置插入元素
 func (l *SqList) ListInsert(index int, value list.ElemType) bool {
 
 	if l.Length == list.MAXSIZE { //满了
@@ -99,7 +99,7 @@ func (l *SqList) ListInsert(index int, value list.ElemType) bool {
 	return true
 }
 
-//删除指定位置处的元素  并将删除的元素给e
+// 删除指定位置处的元素  并将删除的元素给e
 func (l *SqList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -120,12 +120,12 @@ func (l *SqList) ListDelete(index int, e *list.ElemType) bool {
 	return true
 }
 
-//输出
+// 输出
 func (l *SqList) Echo() {
 	fmt.Println(l.Element)
 }
 
-//实现两个线性表的并集
+// 实现两个线性表的并集
 func (la *SqList) UnionL(lb *SqList) {
 	var e list.ElemType
 	//i := 0

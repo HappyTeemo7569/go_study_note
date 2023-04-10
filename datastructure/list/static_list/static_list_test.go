@@ -2,7 +2,7 @@ package static_list
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
+	"my_go/datastructure/list"
 	"testing"
 )
 
@@ -45,7 +45,6 @@ func Test(t *testing.T) {
 		fmt.Println("已清空")
 		my_list.Echo()
 	}
-
 
 	fmt.Println("测试完成")
 }

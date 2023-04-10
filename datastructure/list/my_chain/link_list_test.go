@@ -2,7 +2,7 @@ package my_chain
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
+	"my_go/datastructure/list"
 	"testing"
 )
 

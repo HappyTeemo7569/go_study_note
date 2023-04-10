@@ -2,14 +2,14 @@ package my_chain
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
+	"my_go/datastructure/list"
 )
 
-//链式存储
-//可以用头指针用来存储长度 也就是第0个
-//但是这个有个弊端就是当存储的不是int类型时会有问题
-//所有还是添加一个字段表示长度
-//为了保持从1开始，头指针还是不放东西
+// 链式存储
+// 可以用头指针用来存储长度 也就是第0个
+// 但是这个有个弊端就是当存储的不是int类型时会有问题
+// 所有还是添加一个字段表示长度
+// 为了保持从1开始，头指针还是不放东西
 type LinkList struct {
 	Head   *Node
 	Length int
@@ -20,13 +20,13 @@ type Node struct {
 	Next *Node
 }
 
-//初始化列表
+// 初始化列表
 func (l *LinkList) InitList() {
 	l.Head = new(Node)
 	l.Length = 0
 }
 
-//清空列表（不会清除头结点）
+// 清空列表（不会清除头结点）
 func (l *LinkList) ClearList() {
 	p := new(Node)
 	q := l.Head //q指向第一个结点
@@ -41,7 +41,7 @@ func (l *LinkList) ClearList() {
 	l.Length = 0
 }
 
-//判断是否为空
+// 判断是否为空
 func (l *LinkList) ListEmpty() bool {
 	if l.Length == 0 {
 		return true
@@ -49,12 +49,12 @@ func (l *LinkList) ListEmpty() bool {
 	return false
 }
 
-//获取长度
+// 获取长度
 func (l *LinkList) ListLength() int {
 	return l.Length
 }
 
-//查
+// 查
 func (l *LinkList) GetElem(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -81,7 +81,7 @@ func (l *LinkList) GetElem(index int, e *list.ElemType) bool {
 	return true
 }
 
-//按照元素进行查找，获取索引
+// 按照元素进行查找，获取索引
 func (l *LinkList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
@@ -106,7 +106,7 @@ func (l *LinkList) LocateElem(value list.ElemType) int {
 	return j
 }
 
-//按照索引进行插入数据
+// 按照索引进行插入数据
 func (l *LinkList) ListInsert(index int, value list.ElemType) bool {
 
 	if l.Length == list.MAXSIZE { //满了
@@ -136,7 +136,7 @@ func (l *LinkList) ListInsert(index int, value list.ElemType) bool {
 	return true
 }
 
-//删
+// 删
 func (l *LinkList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -171,7 +171,7 @@ func (l *LinkList) ListDelete(index int, e *list.ElemType) bool {
 	return true
 }
 
-//输出
+// 输出
 func (l *LinkList) Echo() {
 	//遍历的写法
 	curItem := l.Head.Next

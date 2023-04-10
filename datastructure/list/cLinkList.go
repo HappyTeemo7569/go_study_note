@@ -2,7 +2,7 @@ package list
 
 import (
 	"fmt"
-	"my_go/dataStructure/list/my_chain"
+	"my_go/datastructure/list/my_chain"
 )
 
 type CLinkList struct {
@@ -10,14 +10,14 @@ type CLinkList struct {
 	Length int
 }
 
-//初始化列表
+// 初始化列表
 func (l *CLinkList) InitList() {
 	l.Head = new(my_chain.Node)
 	l.Head.Next = l.Head //指向自己
 	l.Length = 0
 }
 
-//清空列表（不会清除头结点）
+// 清空列表（不会清除头结点）
 func (l *CLinkList) ClearList() {
 	//p := new(Node)
 	//q := l.Head //q指向第一个结点
@@ -32,7 +32,7 @@ func (l *CLinkList) ClearList() {
 	l.Length = 0
 }
 
-//判断是否为空
+// 判断是否为空
 func (l *CLinkList) ListEmpty() bool {
 	if l.Length == 0 {
 		return true
@@ -40,12 +40,12 @@ func (l *CLinkList) ListEmpty() bool {
 	return false
 }
 
-//获取长度
+// 获取长度
 func (l *CLinkList) ListLength() int {
 	return l.Length
 }
 
-//查
+// 查
 func (l *CLinkList) GetElem(index int, e *ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -75,7 +75,7 @@ func (l *CLinkList) GetElem(index int, e *ElemType) bool {
 	return true
 }
 
-//按照元素进行查找，获取索引
+// 按照元素进行查找，获取索引
 func (l *CLinkList) LocateElem(value ElemType) int {
 
 	if l.Length == 0 {
@@ -100,7 +100,7 @@ func (l *CLinkList) LocateElem(value ElemType) int {
 	return j
 }
 
-//按照索引进行插入数据
+// 按照索引进行插入数据
 func (l *CLinkList) ListInsert(index int, value ElemType) bool {
 
 	if l.Length == MAXSIZE { //满了
@@ -130,7 +130,7 @@ func (l *CLinkList) ListInsert(index int, value ElemType) bool {
 	return true
 }
 
-//删
+// 删
 func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -165,7 +165,7 @@ func (l *CLinkList) ListDelete(index int, e *ElemType) bool {
 	return true
 }
 
-//输出
+// 输出
 func (l *CLinkList) Echo() {
 	//遍历的写法
 	curItem := l.Head.Next
@@ -176,7 +176,7 @@ func (l *CLinkList) Echo() {
 	fmt.Println()
 }
 
-//实现两个链表的合并
+// 实现两个链表的合并
 func (la *CLinkList) Merge(lb *CLinkList) {
 
 	//A的尾巴指向B的头，B的尾巴指向A的头

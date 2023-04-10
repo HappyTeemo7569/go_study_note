@@ -2,7 +2,7 @@ package list
 
 import (
 	"fmt"
-	"my_go/dataStructure/list/my_chain"
+	"my_go/datastructure/list/my_chain"
 )
 
 /**
@@ -49,7 +49,8 @@ func (l *my_chain.my_chain) Test1() {
 	fmt.Println("中间值:", e, "位置", index)
 }
 
-/**
+/*
+*
 约瑟夫环
 19个人报数，1-3，当谁报数为3，谁就淘汰。现在获取他们淘汰的顺序
 */
@@ -87,7 +88,8 @@ func (l *my_list.CLinkList) Test1() {
 	fmt.Println("结束")
 }
 
-/**
+/*
+*
 魔术师发牌问题
 一共13张黑牌1-13，预先排好顺序，牌面朝下，开始数数，
 数1翻开第一张牌为1取出，

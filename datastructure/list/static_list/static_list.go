@@ -2,10 +2,10 @@ package static_list
 
 import (
 	"fmt"
-	"my_go/dataStructure/list"
+	"my_go/datastructure/list"
 )
 
-//静态链表
+// 静态链表
 type StaticList struct {
 	Element [list.MAXSIZE]StaticNode
 	Length  int
@@ -18,7 +18,7 @@ type StaticNode struct {
 
 //静态链表理论上是要用参数传递的。
 
-//初始化列表
+// 初始化列表
 func (l *StaticList) InitList() {
 	l.Length = 0
 	for i := 0; i < list.MAXSIZE; i++ {
@@ -28,13 +28,13 @@ func (l *StaticList) InitList() {
 	l.Element[list.MAXSIZE-1].Cur = 0
 }
 
-//清空列表 就是将首尾两个数组设置为原始的1和0
+// 清空列表 就是将首尾两个数组设置为原始的1和0
 func (l *StaticList) ClearList() {
 	l.Element[0].Cur = 1
 	l.Element[list.MAXSIZE-1].Cur = 0
 }
 
-//判断是否为空
+// 判断是否为空
 func (l *StaticList) ListEmpty() bool {
 	if l.Length > 0 {
 		return false
@@ -42,12 +42,12 @@ func (l *StaticList) ListEmpty() bool {
 	return true
 }
 
-//获取长度
+// 获取长度
 func (l *StaticList) ListLength() int {
 	return l.Length
 }
 
-//获取指定位置的元素，返回在指针元素中
+// 获取指定位置的元素，返回在指针元素中
 func (l *StaticList) GetElem(index int, e *list.ElemType) bool {
 
 	if l.Length == 0 {
@@ -73,7 +73,7 @@ func (l *StaticList) GetElem(index int, e *list.ElemType) bool {
 	return true
 }
 
-//查找元素在线性表中的位置
+// 查找元素在线性表中的位置
 func (l *StaticList) LocateElem(value list.ElemType) int {
 
 	if l.Length == 0 {
@@ -95,7 +95,7 @@ func (l *StaticList) LocateElem(value list.ElemType) int {
 	return j
 }
 
-//获取备份链表的第一个可用下标
+// 获取备份链表的第一个可用下标
 func (l *StaticList) Malloc_SLL() int {
 
 	//获取当前数组的第一个元素中存放的可用下标
@@ -109,7 +109,7 @@ func (l *StaticList) Malloc_SLL() int {
 	return i
 }
 
-//增
+// 增
 func (l *StaticList) ListInsert(index int, value list.ElemType) bool {
 
 	if l.Length == list.MAXSIZE { //满了
@@ -141,7 +141,7 @@ func (l *StaticList) ListInsert(index int, value list.ElemType) bool {
 	return false
 }
 
-//将回退首数组的数据，指向我们删除的那个空间，不会造成内存碎片
+// 将回退首数组的数据，指向我们删除的那个空间，不会造成内存碎片
 func (l *StaticList) Free_SLL(k int) {
 
 	//将我们删除的这个元素游标指向原来的下一个空闲分量，方便一会回到原来的位置
@@ -151,7 +151,7 @@ func (l *StaticList) Free_SLL(k int) {
 	l.Element[0].Cur = k
 }
 
-//删
+// 删
 func (l *StaticList) ListDelete(index int, e *list.ElemType) bool {
 	if l.Length == 0 {
 		fmt.Println("获取失败，队列为空")
@@ -185,7 +185,7 @@ func (l *StaticList) ListDelete(index int, e *list.ElemType) bool {
 	return true
 }
 
-//输出
+// 输出
 func (l *StaticList) Echo() {
 	start := l.Element[list.MAXSIZE-1].Cur
 	index := start

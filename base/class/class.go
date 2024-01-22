@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+/**
+Go实现类似继承的例子
+*/
+
 type Animal struct {
 	name   string
 	weight int
@@ -23,17 +27,16 @@ func (h *Horse) hello() {
 func (a *Animal) hello() {
 	fmt.Println(a.name)
 	fmt.Println(a.weight)
-	//fmt.Println(a.speak)
 }
 
 func TestClass() {
-	bm_horse := &Horse{
+	bmHorse := &Horse{
 		Animal: &Animal{ // 注意此行
 			name:   "baima",
 			weight: 60,
 		},
 		speak: "neigh",
 	}
-	bm_horse.hello()
-	bm_horse.Animal.hello()
+	bmHorse.hello()
+	bmHorse.Animal.hello()
 }

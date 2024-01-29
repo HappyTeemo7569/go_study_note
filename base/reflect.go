@@ -5,13 +5,13 @@ import (
 	"reflect"
 )
 
-//获取类型
+// 获取类型
 func reflectTypeOf() {
 	var a int
 	//reflect.TypeOf() 取得变量 a 的类型对象 typeOfA，类型为 reflect.Type()。
 	typeOfA := reflect.TypeOf(a)
-	//类型名为 int，种类（Kind）为 int。
-	fmt.Println(typeOfA.Name(), typeOfA.Kind())
+
+	fmt.Println(typeOfA.Name(), typeOfA.Kind()) //int int
 
 	/**
 	type Kind uint
@@ -45,7 +45,8 @@ func reflectTypeOf() {
 	    UnsafePointer        // 底层指针
 	)
 	*/
-	//Map、Slice、Chan 属于引用类型，使用起来类似于指针，但是在种类常量定义中仍然属于独立的种类，不属于 Ptr。type A struct{} 定义的结构体属于 Struct 种类，*A 属于 Ptr。
+	//Map、Slice、Chan 属于引用类型，使用起来类似于指针，但是在种类常量定义中仍然属于独立的种类，不属于 Ptr。
+	//type A struct{} 定义的结构体属于 Struct 种类，*A 属于 Ptr。
 
 	type cat struct {
 	}
@@ -55,7 +56,8 @@ func reflectTypeOf() {
 
 	ins := &cat{}
 	typeOfCatPtr := reflect.TypeOf(ins)
-	fmt.Printf("name:'%v' kind:'%v'\n", typeOfCatPtr.Name(), typeOfCatPtr.Kind()) //指针变量的类型名称是空，不是 *cat。
+	fmt.Printf("name:'%v' kind:'%v'\n", typeOfCatPtr.Name(), typeOfCatPtr.Kind()) //name:'' kind:'ptr'
+	//指针变量的类型名称是空，不是 *cat。
 
 	// 取类型的元素
 	typeOfCat2 := typeOfCatPtr.Elem() //等于取了指针的值 等效于	typeOfCat := reflect.TypeOf(cat{})
@@ -105,7 +107,7 @@ func reflectStruct() {
 	fmt.Println(valueOfCat.FieldByIndex([]int{1}).Type())
 }
 
-//重新获得原始值
+// 重新获得原始值
 func reflectValue() {
 	var a int = 1024
 

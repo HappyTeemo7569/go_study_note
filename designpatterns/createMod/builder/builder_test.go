@@ -1,6 +1,9 @@
 package builder
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestBuilder1(t *testing.T) {
 	builder := &Builder1{}
@@ -9,6 +12,8 @@ func TestBuilder1(t *testing.T) {
 	res := builder.GetResult()
 	if res != "123" {
 		t.Fatalf("Builder1 fail expect 123 acture %s", res)
+	} else {
+		fmt.Println(res)
 	}
 }
 
@@ -19,5 +24,7 @@ func TestBuilder2(t *testing.T) {
 	res := builder.GetResult()
 	if res != 6 {
 		t.Fatalf("Builder2 fail expect 6 acture %d", res)
+	} else {
+		fmt.Println(res)
 	}
 }

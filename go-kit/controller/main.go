@@ -1,6 +1,9 @@
 package controller
 
-import "strings"
+import (
+	"context"
+	"strings"
+)
 
 // ArithmeticRequest define request struct
 type ArithmeticRequest struct {
